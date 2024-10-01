@@ -44,7 +44,7 @@ public class ShoppingListController {
         //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         // }
 
-        String username = userDetails != null ? userDetails.getUsername() : "teste"; // Usar um usuário padrão para teste
+        String username = userDetails.getUsername(); // Usar um usuário padrão para teste
         ShoppingListDTO shoppingList = shoppingListService.getShoppingListByIdAndUsername(id, username);
 
         if (shoppingList == null) {
