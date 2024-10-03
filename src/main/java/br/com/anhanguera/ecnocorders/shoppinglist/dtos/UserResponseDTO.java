@@ -9,7 +9,7 @@ public class UserResponseDTO {
     private String login;
     private String token;
 
-    // Construtor com argumentos
+    // Construtor
     public UserResponseDTO(String login, String token) {
         this.login = login;
         this.token = token;
