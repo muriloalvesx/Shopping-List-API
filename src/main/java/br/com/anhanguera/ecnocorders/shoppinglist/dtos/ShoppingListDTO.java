@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingListDTO {
-    private Long id;  // Adicione o campo id
+    private Long id;
     private String nome;
     private List<String> itens;
     private String usuario;
@@ -17,7 +17,6 @@ public class ShoppingListDTO {
         this.usuario = usuario;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -34,5 +33,4 @@ public class ShoppingListDTO {
         return usuario;
     }
 
-    // Adicione outros métodos, se necessário
 }
