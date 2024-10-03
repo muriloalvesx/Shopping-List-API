@@ -23,28 +23,25 @@ public class ShoppingListController {
         this.shoppingListService = shoppingListService;
     }
 
-    // Método POST para criar uma nova lista de compras
+    // Requisição POST para criar uma nova lista de compras
     @PostMapping("/shopping")
     public ResponseEntity<ShoppingList> criarShoppingList(@RequestBody ShoppingListDTO shoppingListDTO) {
         ShoppingList novaLista = shoppingListService.criarLista(shoppingListDTO);
         return ResponseEntity.ok(novaLista);
     }
 
-    // Método GET para buscar as listas de compras do usuário logado
+    // Requisição GET para buscar as listas de compras do usuário logado
     @GetMapping("/shopping")
     public ResponseEntity<List<ShoppingListDTO>> getShoppingListsByUsername(@RequestParam String username) {
         List<ShoppingListDTO> shoppingLists = shoppingListService.getShoppingListsByUsername(username);
-        return ResponseEntity.ok(shoppingLists); // Retorna as listas em formato JSON
+        return ResponseEntity.ok(shoppingLists);
     }
 
+    // Requisição GET para buscar lista especifica ao visualizar
     @GetMapping("/shopping/{id}")
     public ResponseEntity<ShoppingListDTO> getShoppingList(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails) {
-        // Verificação comentada para testes
-        // if (userDetails == null) {
-        //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-        // }
 
-        String username = userDetails.getUsername(); // Usar um usuário padrão para teste
+        String username = userDetails.getUsername();
         ShoppingListDTO shoppingList = shoppingListService.getShoppingListByIdAndUsername(id, username);
 
         if (shoppingList == null) {
@@ -54,18 +51,20 @@ public class ShoppingListController {
         return ResponseEntity.ok(shoppingList);
     }
 
+    // Requisição DELETE para deletar uma lista
     @DeleteMapping("/shopping/{id}")
     public ResponseEntity<Void> deleteShoppingList(@PathVariable Long id) {
-        // Obtém o nome de usuário logado
+
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        // Chama o serviço para deletar a lista
+
         shoppingListService.deleteShoppingListByIdAndUsername(id, username);
 
-        // Retorna um status 204 No Content ao sucesso
+
         return ResponseEntity.noContent().build();
     }
 
+    // Requisição POST para adicionar item em uma lista existente
     @PostMapping("/shopping/{listId}/items")
     public ResponseEntity<ShoppingListDTO> addItem(@PathVariable Long listId, @RequestBody Map<String, String> requestBody) {
         String itemName = requestBody.get("nome");
@@ -77,7 +76,7 @@ public class ShoppingListController {
         return ResponseEntity.ok(updatedList);
     }
 
-    // Endpoint para remover um item da lista de compras
+    // Requisição DELETE para deletar item de uma lista existente
     @DeleteMapping("/shopping/{listId}/items/{itemIndex}")
     public ResponseEntity<ShoppingListDTO> removeItem(@PathVariable Long listId, @PathVariable int itemIndex) {
         ShoppingListDTO updatedList = shoppingListService.removeItemFromList(listId, itemIndex);
