@@ -17,11 +17,10 @@ public class UsersModel {
     @Column(nullable = false)
     private String password;
 
-    // Default constructor
     public UsersModel() {
     }
 
-    // Constructor with all fields
+    // Construtor
     public UsersModel(String login, String password) {
         this.login = login;
         this.password = password;
