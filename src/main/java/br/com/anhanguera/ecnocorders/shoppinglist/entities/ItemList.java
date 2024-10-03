@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "items") // Nome da tabela no banco de dados
+@Table(name = "items")
 public class ItemList {
 
     @Id
@@ -18,7 +18,6 @@ public class ItemList {
     @JsonIgnore
     private ShoppingList shoppingList;
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
