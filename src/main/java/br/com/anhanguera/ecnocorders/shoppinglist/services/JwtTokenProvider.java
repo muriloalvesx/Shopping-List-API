@@ -34,9 +34,8 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration}")
     private int jwtExpirationInMs;
 
-    // Use uma chave secreta forte
     public JwtTokenProvider(@Value("${jwt.secret}") String jwtSecret) {
-        this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes()); // Gera a chave de tamanho apropriado
+        this.secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
     public String generateToken(Authentication authentication) {
@@ -45,13 +44,13 @@ public class JwtTokenProvider {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationInMs))
-                .signWith(secretKey, SignatureAlgorithm.HS512)  // Usa a chave correta
+                .signWith(secretKey, SignatureAlgorithm.HS512)
                 .compact();
     }
 
     public String getUserIdFromJWT(String token) {
         Claims claims = Jwts.parserBuilder()
-                .setSigningKey(secretKey)  // Validação com a chave segura
+                .setSigningKey(secretKey)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
@@ -61,10 +60,9 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(authToken);  // Validação do token
+            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(authToken);
             return true;
         } catch (Exception ex) {
-            // Tratar exceções, como token inválido ou expirado
         }
         return false;
     }
