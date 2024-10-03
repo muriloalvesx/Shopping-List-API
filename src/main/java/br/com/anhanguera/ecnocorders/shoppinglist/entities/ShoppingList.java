@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "shopping_lists") // Nome da tabela no banco de dados
+@Table(name = "shopping_lists")
 public class ShoppingList {
 
     @Id
@@ -14,13 +14,12 @@ public class ShoppingList {
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false) // Renomeado para user_id para ficar mais claro
-    private UsersModel user; // Alterado para UsersModel
+    @JoinColumn(name = "user_id", nullable = false)
+    private UsersModel user;
 
     @OneToMany(mappedBy = "shoppingList", cascade = CascadeType.ALL)
     private List<ItemList> items;
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -38,10 +37,10 @@ public class ShoppingList {
     }
 
     public UsersModel getUser() {
-        return user; // Retornando UsersModel
+        return user;
     }
 
-    public void setUser(UsersModel user) { // Aceitando UsersModel
+    public void setUser(UsersModel user) {
         this.user = user;
     }
 
