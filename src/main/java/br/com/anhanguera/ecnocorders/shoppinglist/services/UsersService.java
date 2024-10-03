@@ -31,7 +31,6 @@ public class UsersService {
         this.tokenProvider = tokenProvider;
         this.passwordEncoder = passwordEncoder;
 
-        // Log para verificar a instância do PasswordEncoder
         System.out.println("PasswordEncoder class: " + passwordEncoder.getClass().getName());
     }
 
@@ -42,7 +41,6 @@ public class UsersService {
 
         UsersModel newUser = new UsersModel();
         newUser.setLogin(registerDTO.getLogin());
-        // Codificar a senha usando BCryptPasswordEncoder
         newUser.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         usersRepository.save(newUser);
 
