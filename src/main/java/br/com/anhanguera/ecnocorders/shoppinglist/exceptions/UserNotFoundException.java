@@ -8,7 +8,7 @@ public class UserNotFoundException extends RuntimeException {
     private String code;
 
     public UserNotFoundException() {
-        super("O usuário inserido não existe!");
+        super("Usuário ou senha incorreto!");
         this.code = "USER_NOT_FOUND";
     }
 
